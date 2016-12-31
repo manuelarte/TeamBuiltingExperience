@@ -1,0 +1,66 @@
+info:
+  name: teambuiltingexperience
+  description: Team Builting Experience Microservice, to enhance the team builting experience!
+
+---
+
+# Queue configuration
+messaging:
+  event.amqp:
+    exchange: teambuilting.ex
+    queue: teambuilting.queue
+    team-event-routing-key: team.event
+    player-event-routing-key: player.event
+
+---
+
+spring:
+  profiles: production
+  data.mongodb:
+    database: teambuiltingexperience # Database name.
+    host: ds147537.mlab.com # Mongo server host.
+    port: 47537 # Mongo server port.
+    username: admin # Login user of the mongo server.
+    password: admin # Login password of the mongo server.
+    repositories.enabled: true # Enable Mongo repositories.
+  rabbitmq:
+      username: uzoukkav
+      virtual-host: uzoukkav
+      password: xN719DwSB64TPZ5dbclQ12LJ0o7lZ2tU
+      host: spotted-monkey.rmq.cloudamqp.com
+    
+--- 
+  
+spring:
+  profiles: development
+  data.mongodb:
+    database: teambuiltingexperience # Database name.
+    host: localhost # Mongo server host.
+    port: 27017 # Mongo server port.
+    repositories.enabled: true # Enable Mongo repositories.
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+
+
+endpoints:
+  enabled: true # Enable endpoints.
+  actuator.enabled: true # Enable the endpoint.
+
+---
+
+auth0:
+  domain: manuelarte.eu.auth0.com
+  issuer: https://manuelarte.eu.auth0.com/
+  clientId: XOBz4RdzWoMnpxAvXKtK9R8W9IODYKsl
+  clientSecret: tvKvKZd1tigVIAGztcOELwKIj0B0DswEbLdRG1PWu7NfZXk6VGbGkWdQjFpTZmWp
+  securedRoute: NOT_USED
+  base64EncodedSecret: true
+  authorityStrategy: ROLES
+  defaultAuth0ApiSecurityEnabled: false
+  signingAlgorithm: HS256
+  #signingAlgorithm: RS256
+  #publicKeyPath: certificate/cert.pem
