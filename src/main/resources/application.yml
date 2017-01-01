@@ -2,6 +2,8 @@ info:
   name: teambuiltingexperience
   description: Team Builting Experience Microservice, to enhance the team builting experience!
 
+server:
+  port: ${PORT:8082}
 ---
 
 # Queue configuration
