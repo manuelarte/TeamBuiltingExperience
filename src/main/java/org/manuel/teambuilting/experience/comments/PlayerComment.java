@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mongodb.annotations.Immutable;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
@@ -62,12 +65,17 @@ public class PlayerComment {
     @Size(min = 5)
     private String comment;
 
+    @NotNull
+    @Past
+    private Date when;
+
     @PersistenceConstructor
-    public PlayerComment(final String userId, final String playerId, final CommentReason reason, final String comment) {
+    public PlayerComment(final String userId, final String playerId, final CommentReason reason, final String comment, final Date when) {
         this.userId = userId;
         this.playerId = playerId;
         this.reason = reason;
         this.comment = comment;
+        this.when = when;
     }
 
     public PlayerComment() {

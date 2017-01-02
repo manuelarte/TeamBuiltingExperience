@@ -2,6 +2,7 @@ package org.manuel.teambuilting.experience.comments;
 
 import javax.inject.Inject;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -24,6 +25,7 @@ public class PlayerCommentCommandService {
      * @param playerComment
      * @return The comments received by the player
      */
+    @PreAuthorize("hasAuthority('user') or hasAuthority('admin')")
     public PlayerComment savePlayerComment(final PlayerComment playerComment) {
         Assert.notNull(playerComment);
         Assert.isNull(repository.findByUserIdAndPlayerId(playerComment.getUserId(), playerComment.getPlayerId()), "A previous comment was found");
