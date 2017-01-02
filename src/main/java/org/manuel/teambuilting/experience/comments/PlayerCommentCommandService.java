@@ -1,9 +1,9 @@
 package org.manuel.teambuilting.experience.comments;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import javax.inject.Inject;
 
 /**
  * @author Manuel Doncel Martos
@@ -26,7 +26,7 @@ public class PlayerCommentCommandService {
      */
     public PlayerComment savePlayerComment(final PlayerComment playerComment) {
         Assert.notNull(playerComment);
-        Assert.isNull(repository.findByUserIdAndPlayerId(playerComment.getUser_id(), playerComment.getPlayerId()), "A previous comment was found");
+        Assert.isNull(repository.findByUserIdAndPlayerId(playerComment.getUserId(), playerComment.getPlayerId()), "A previous comment was found");
         return repository.save(playerComment);
     }
 }

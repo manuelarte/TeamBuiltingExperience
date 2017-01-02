@@ -1,9 +1,9 @@
 package org.manuel.teambuilting.experience.comments;
 
+import java.util.Set;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Set;
 
 /**
  * @author Manuel Doncel Martos
@@ -14,10 +14,10 @@ public interface PlayerCommentRepository extends MongoRepository<PlayerComment, 
 
     /**
      * Find all the comments made by one user
-     * @param user_id
+     * @param userId
      * @return
      */
-    Set<PlayerComment> findByUserId(String user_id);
+    Set<PlayerComment> findByUserId(String userId);
 
     /**
      * Find all the comments received for one player
@@ -28,9 +28,9 @@ public interface PlayerCommentRepository extends MongoRepository<PlayerComment, 
 
     /**
      * Find the comment done by one user to one player
-     * @param user_id
+     * @param userId
      * @param playerId
      * @return
      */
-    PlayerComment findByUserIdAndPlayerId(String user_id, String playerId);
+    PlayerComment findByUserIdAndPlayerId(String userId, String playerId);
 }

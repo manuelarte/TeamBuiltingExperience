@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mongodb.annotations.Immutable;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * @author Manuel on 31/12/2016.
@@ -24,8 +24,6 @@ import javax.validation.constraints.Size;
 @Immutable
 @Document
 @Data
-@Builder
-@NoArgsConstructor
 public class PlayerComment {
 
     @Id
@@ -36,7 +34,7 @@ public class PlayerComment {
      */
     @NotNull
     @Indexed
-    private String user_id;
+    private String userId;
 
     /**
      * The id of the player who received the comment
@@ -65,11 +63,15 @@ public class PlayerComment {
     private String comment;
 
     @PersistenceConstructor
-    public PlayerComment(final String user_id, final String playerId, final CommentReason reason, final String comment) {
-        this.user_id = user_id;
+    public PlayerComment(final String userId, final String playerId, final CommentReason reason, final String comment) {
+        this.userId = userId;
         this.playerId = playerId;
         this.reason = reason;
         this.comment = comment;
+    }
+
+    public PlayerComment() {
+
     }
 
 }
