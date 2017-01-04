@@ -1,10 +1,17 @@
 package org.manuel.teambuilting.experience.comments;
 
-import org.springframework.web.bind.annotation.*;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.Set;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Manuel Doncel Martos
@@ -31,6 +38,12 @@ public class PlayerCommentController {
     @RequestMapping(method = RequestMethod.POST)
     public PlayerComment savePlayerComment(@Valid @RequestBody final PlayerComment playerComment) {
         return commandService.savePlayerComment(playerComment);
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<PlayerComment> deletePlayerComment(@PathVariable("id") final String id) {
+        commandService.deletePlayerComment(id);
+        return new ResponseEntity<PlayerComment>(HttpStatus.NO_CONTENT);
     }
 
 }

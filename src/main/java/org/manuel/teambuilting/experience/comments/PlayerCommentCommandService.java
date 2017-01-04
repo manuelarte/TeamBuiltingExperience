@@ -31,4 +31,11 @@ public class PlayerCommentCommandService {
         Assert.isNull(repository.findByUserIdAndPlayerId(playerComment.getUserId(), playerComment.getPlayerId()), "A previous comment was found");
         return repository.save(playerComment);
     }
+
+    @PreAuthorize("hasAuthority('user') or hasAuthority('admin')")
+    public void deletePlayerComment(final String id) {
+        Assert.hasLength(id);
+        repository.delete(id);
+    }
+
 }

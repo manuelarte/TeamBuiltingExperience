@@ -62,7 +62,7 @@ public class PlayerComment {
      * The holder of the comment
      */
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, max = 200)
     private String comment;
 
     @NotNull

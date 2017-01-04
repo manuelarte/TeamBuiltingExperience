@@ -1,9 +1,11 @@
 /**
  * 
  */
-package org.manuel.teambuilting.core.config;
+package org.manuel.teambuilting.experience.config;
 
 import com.auth0.spring.security.api.Auth0SecurityConfig;
+
+import org.manuel.teambuilting.core.config.Auth0Client;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,8 +38,7 @@ public class AppConfig extends Auth0SecurityConfig {
 
 	@Override
 	protected void authorizeRequests(final HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/users/**").authenticated()
-						.anyRequest().permitAll();
+		http.authorizeRequests().anyRequest().permitAll();
 	}
 
 }
