@@ -78,7 +78,7 @@ public class PlayerReward {
     private Date fromDate;
 
     /**
-     *
+     * Until when the reward is valid
      */
     @NotNull
     private Date toDate;

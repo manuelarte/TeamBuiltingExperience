@@ -35,10 +35,16 @@ public class PlayerRewardCommandService {
         return repository.save(playerReward);
     }
 
+    @PreAuthorize("hasAuthority('user') or hasAuthority('admin')")
+    public void deletePlayerReward(final String id) {
+        Assert.hasLength(id);
+        repository.delete(id);
+    }
+
     private boolean noOverlapping(final PlayerReward playerReward) {
         final Set<PlayerReward> overlappingEntries = new HashSet<>();
         final Set<PlayerReward> votesForOnePlayer = repository
-            .findByUserIdAndTeamIdAndPlayerIdAndReward(playerReward.getUserId(), playerReward.getTeamId(), playerReward.getPlayerId(), playerReward.getReward());
+            .findByUserIdAndTeamIdAndReward(playerReward.getUserId(), playerReward.getTeamId(), playerReward.getReward());
 
         votesForOnePlayer.forEach(entry -> {
             if (isOverlapping(entry, playerReward)) {
@@ -54,12 +60,6 @@ public class PlayerRewardCommandService {
         final boolean fromDateBetweenPreviousDates = (newEntry.getFromDate().compareTo(previousEntry.getFromDate()) == 0 || newEntry.getFromDate().after(previousEntry.getFromDate())) && newEntry.getFromDate().before(previousEntry.getToDate());
         final boolean toDateBetweenPreviousDates = newEntry.getToDate().after(previousEntry.getFromDate()) && newEntry.getToDate().before(previousEntry.getToDate());
         return previousEntryIsInsideNewOne || fromDateBetweenPreviousDates || toDateBetweenPreviousDates;
-    }
-
-    @PreAuthorize("hasAuthority('user') or hasAuthority('admin')")
-    public void deletePlayerReward(final String id) {
-        Assert.hasLength(id);
-        repository.delete(id);
     }
 
 }

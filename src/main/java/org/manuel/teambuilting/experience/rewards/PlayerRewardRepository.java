@@ -22,7 +22,9 @@ public interface PlayerRewardRepository extends MongoRepository<PlayerReward, St
      */
     Set<PlayerReward> findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(String teamId, Date fromDate, Date toDate);
 
-    // test this
-    Set<PlayerReward> findByUserIdAndTeamIdAndPlayerIdAndReward(String userId, String teamId, String playerId, Reward reward);
+    /**
+     * Get all the timeframes for the vote of one user for one reward
+     */
+    Set<PlayerReward> findByUserIdAndTeamIdAndReward(String userId, String teamId, Reward reward);
 
 }

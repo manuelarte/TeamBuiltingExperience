@@ -33,9 +33,8 @@ public class PlayerRewardController {
     }
 
     @RequestMapping(path = "/{teamId}", method = RequestMethod.GET)
-    public Set<PlayerReward> getRewardsFor(@PathVariable("teamId") final String teamId, @RequestParam(value="fromDate") final Date fromDate,
-        @RequestParam(value="toDate") final Date toDate) {
-        return queryService.getRewardsFor(teamId, fromDate, toDate);
+    public Set<PlayerReward> getRewardsFor(@PathVariable("teamId") final String teamId, @RequestParam(value="date") final Date date) {
+        return queryService.getRewardsFor(teamId, date);
     }
 
     @RequestMapping(method = RequestMethod.POST)

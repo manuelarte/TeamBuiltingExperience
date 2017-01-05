@@ -1,9 +1,12 @@
 package org.manuel.teambuilting.experience.rewards;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -26,6 +29,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PlayerRewardCommandServiceTest {
+
+	@Inject
+	private PlayerRewardQueryService queryService;
 
 	@Inject
 	private PlayerRewardCommandService commandService;
@@ -207,6 +213,48 @@ public class PlayerRewardCommandServiceTest {
 		repository.save(new PlayerReward(userId, teamId, playerId, reward, comment, fromDateP, toDateP));
 
 		commandService.savePlayerReward(new PlayerReward(userId, teamId, playerId, reward, comment, fromDateN, toDateN));
+	}
+
+	@Test
+	public void testRetrieveAllTheRewardsForOneTeamForOneDateAllRecordsInsideTimeFrame() {
+		final String userId = "userId";
+		final String teamId = "teamId";
+		final String comment = "";
+
+		final Date toDate = changeDate(new Date(), +1, Calendar.MONTH);
+		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
+
+		// 1. Users voting to the same player for the same reward
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+
+		// 2. User voting to another player for
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdTwo", Reward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, fromDate, toDate));
+
+		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		assertTrue(retrieved.size() == 4);
+	}
+
+	@Test
+	public void testRetrieveAllTheRewardsForOneTeamForOneDateNotAllRecordsIndsideTimeFrame() {
+		final String userId = "userId";
+		final String teamId = "teamId";
+		final String comment = "";
+
+		final Date toDate = changeDate(new Date(), +1, Calendar.MONTH);
+		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
+
+		// 1. Users voting to the same player for the same reward
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+
+		// 2. User voting to one player one reward different timeframe
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdTwo", Reward.BEST_COACH, comment, toDate, changeDate(toDate, 1, Calendar.YEAR)));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, changeDate(fromDate, -1, Calendar.YEAR), fromDate));
+
+		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		assertTrue(retrieved.size() == 2);
 	}
 
 	private Date changeDate(final Date date, final int number, final int calendarField ) {

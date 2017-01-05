@@ -25,10 +25,11 @@ public class PlayerRewardQueryService {
     /**
      * Get all the rewards given to the members of the team
      * @param teamId
-     * @return The comments received by the player
+     * @param date
+     * @return The rewards of the team in that date
      */
-    public Set<PlayerReward> getRewardsFor(final String teamId, final Date fromDate, final Date toDate) {
+    public Set<PlayerReward> getRewardsFor(final String teamId, final Date date) {
         Assert.notNull(teamId);
-        return repository.findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(teamId, fromDate, toDate);
+        return repository.findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(teamId, date, date);
     }
 }
