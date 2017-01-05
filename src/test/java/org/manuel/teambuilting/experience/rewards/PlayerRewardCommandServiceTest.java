@@ -216,6 +216,29 @@ public class PlayerRewardCommandServiceTest {
 	}
 
 	@Test
+	public void testRetrieveRewardsForOneTeamForAllTheUsersTimeFrame() {
+		final String userId = "userId";
+		final String userIdTwo = "userIdTwo";
+		final String userIdThree = "userIdThree";
+		final String teamId = "teamId";
+		final String comment = "";
+
+		final Date toDate = changeDate(new Date(), +1, Calendar.MONTH);
+		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
+
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdTwo", Reward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, fromDate, toDate));
+
+		final PlayerReward rewardFour = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, "playerIdOne", Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardFive = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, "playerIdTwo", Reward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardSix = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, fromDate, toDate));
+
+		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		assertTrue(retrieved.size() == 6);
+	}
+
+	@Test
 	public void testRetrieveAllTheRewardsForOneTeamForOneDateAllRecordsInsideTimeFrame() {
 		final String userId = "userId";
 		final String teamId = "teamId";
