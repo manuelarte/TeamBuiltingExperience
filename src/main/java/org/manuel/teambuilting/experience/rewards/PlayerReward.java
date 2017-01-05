@@ -7,6 +7,7 @@ import com.mongodb.annotations.Immutable;
 
 import java.util.Date;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -19,7 +20,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 /**
- * @author Manuel on 31/12/2016.
+ * @author Manuel Doncel Martos
+ * @since 04/01/2016.
  */
 @JsonIgnoreProperties
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -95,6 +97,11 @@ public class PlayerReward {
 
     public PlayerReward() {
 
+    }
+
+    @AssertTrue
+    private boolean startDateBeforeEndDate() {
+        return toDate.getTime() > fromDate.getTime();
     }
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Manuel Doncel Martos
- * @since 31/12/2016.
+ * @since 04/01/2016.
  */
 @RestController
 @RequestMapping("/rewards")

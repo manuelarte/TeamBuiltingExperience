@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Manuel Doncel Martos
- * @since 31/12/2016.
+ * @since 04/01/2016.
  */
 @Repository
 public interface PlayerRewardRepository extends MongoRepository<PlayerReward, String> {
@@ -20,9 +20,9 @@ public interface PlayerRewardRepository extends MongoRepository<PlayerReward, St
      * @param toDate
      * @return
      */
-    Set<PlayerReward> findByUserIdAndFromDateGreaterOrEqualToAndToDateLowerOrEqualTo(String teamId, Date fromDate, Date toDate);
+    Set<PlayerReward> findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(String teamId, Date fromDate, Date toDate);
 
     // test this
-    PlayerReward findByUserIdAndTeamIdAndPlayerIdAndFromDateLowerAndToDateGreaterOrEqualTo(String userId, String teamId, String playerId, Date fromDate, Date toDate);
+    Set<PlayerReward> findByUserIdAndTeamIdAndPlayerIdAndReward(String userId, String teamId, String playerId, Reward reward);
 
 }

@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 
 /**
  * @author Manuel Doncel Martos
- * @since 31/12/2016.
+ * @since 04/01/2016.
  */
 @Service
 public class PlayerRewardQueryService {
@@ -29,6 +29,6 @@ public class PlayerRewardQueryService {
      */
     public Set<PlayerReward> getRewardsFor(final String teamId, final Date fromDate, final Date toDate) {
         Assert.notNull(teamId);
-        return repository.findByUserIdAndFromDateGreaterOrEqualToAndToDateLowerOrEqualTo(teamId, fromDate, toDate);
+        return repository.findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(teamId, fromDate, toDate);
     }
 }
