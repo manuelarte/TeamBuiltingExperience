@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 04/01/2016.
  */
 @RestController
-@RequestMapping("/teams/rewards")
+@RequestMapping("/rewards")
 public class PlayerRewardController {
 
     private final PlayerRewardQueryService queryService;
@@ -32,9 +32,14 @@ public class PlayerRewardController {
         this.commandService = commandService;
     }
 
-    @RequestMapping(path = "/{teamId}", method = RequestMethod.GET)
-    public Set<PlayerReward> getRewardsFor(@PathVariable("teamId") final String teamId, @RequestParam(value="date") final Date date) {
-        return queryService.getRewardsFor(teamId, date);
+    @RequestMapping(path = "/teams/{teamId}", method = RequestMethod.GET)
+    public Set<PlayerReward> getRewardsForTeam(@PathVariable("teamId") final String teamId, @RequestParam(value="date") final Date date) {
+        return queryService.getRewardsForTeam(teamId, date);
+    }
+
+    @RequestMapping(path = "/players/{playerId}", method = RequestMethod.GET)
+    public Set<PlayerReward> getRewardsForPlayer(@PathVariable("playerId") final String playerId) {
+        return queryService.getRewardsForPlayer(playerId);
     }
 
     @RequestMapping(method = RequestMethod.POST)

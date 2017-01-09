@@ -2,6 +2,7 @@ package org.manuel.teambuilting.experience.listeners;
 
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
 import org.manuel.teambuilting.experience.messages.PlayerDeletedMessage;
+import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.context.annotation.Configuration;
@@ -20,15 +21,18 @@ import javax.inject.Inject;
 public class PlayerListener {
 
     private final PlayerCommentRepository playerCommentRepository;
+    private final PlayerRewardRepository playerRewardRepository;
 
     @Inject
-    public PlayerListener(final PlayerCommentRepository playerCommentRepository) {
+    public PlayerListener(final PlayerCommentRepository playerCommentRepository, final PlayerRewardRepository playerRewardRepository) {
         this.playerCommentRepository = playerCommentRepository;
+        this.playerRewardRepository = playerRewardRepository;
     }
 
     @RabbitHandler
     public void handle(final PlayerDeletedMessage message) {
         playerCommentRepository.delete(playerCommentRepository.findByPlayerId(message.getPlayer().getId()));
+        playerRewardRepository.delete(playerRewardRepository.findByPlayerId(message.getPlayer().getId()));
     }
 
 }
