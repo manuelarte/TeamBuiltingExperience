@@ -234,7 +234,7 @@ public class PlayerRewardCommandServiceTest {
 		final PlayerReward rewardFive = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, "playerIdTwo", Reward.BEST_COACH, comment, fromDate, toDate));
 		final PlayerReward rewardSix = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, fromDate, toDate));
 
-		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 6);
 	}
 
@@ -255,7 +255,7 @@ public class PlayerRewardCommandServiceTest {
 		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdTwo", Reward.BEST_COACH, comment, fromDate, toDate));
 		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, fromDate, toDate));
 
-		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 4);
 	}
 
@@ -276,7 +276,7 @@ public class PlayerRewardCommandServiceTest {
 		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdTwo", Reward.BEST_COACH, comment, toDate, changeDate(toDate, 1, Calendar.YEAR)));
 		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, "playerIdThree", Reward.BEST_PLAYER, comment, changeDate(fromDate, -1, Calendar.YEAR), fromDate));
 
-		final Set<PlayerReward> retrieved = queryService.getRewardsFor(teamId, new Date());
+		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 2);
 	}
 
