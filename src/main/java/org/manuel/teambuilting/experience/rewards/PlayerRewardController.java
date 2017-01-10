@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 04/01/2016.
  */
 @RestController
-@RequestMapping("/rewards")
+@RequestMapping("/experience/rewards")
 public class PlayerRewardController {
 
     private final PlayerRewardQueryService queryService;

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 31/12/2016.
  */
 @RestController
-@RequestMapping("/comments/players")
+@RequestMapping("/experience/comments/players")
 public class PlayerCommentController {
 
     private final PlayerCommentQueryService queryService;
