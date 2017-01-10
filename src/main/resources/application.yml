@@ -21,16 +21,16 @@ spring:
   profiles: production
   data.mongodb:
     database: teambuiltingexperience # Database name.
-    host: ds147537.mlab.com # Mongo server host.
-    port: 47537 # Mongo server port.
-    username: admin # Login user of the mongo server.
-    password: admin # Login password of the mongo server.
+    host: ${MONGODB_HOST} # Mongo server host.
+    port: ${MONGODB_PORT} # Mongo server port.
+    username: ${MONGODB_USERNAME} # Login user of the mongo server.
+    password: ${MONGODB_PASSWORD} # Login password of the mongo server.
     repositories.enabled: true # Enable Mongo repositories.
   rabbitmq:
-      username: uzoukkav
-      virtual-host: uzoukkav
-      password: xN719DwSB64TPZ5dbclQ12LJ0o7lZ2tU
-      host: spotted-monkey.rmq.cloudamqp.com
+      username: ${RABBITMQ_USERNAME}
+      virtual-host: ${RABBITMQ_VIRTUAL_HOST}
+      password: ${RABBITMQ_PASSWORD}
+      host: ${RABBITMQ_HOST}
     
 --- 
   
