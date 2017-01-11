@@ -11,7 +11,8 @@ messaging:
   event.amqp:
     exchange: teambuilting.ex
     queue: teambuilting.queue
-    team-event-routing-key: team.event
+    team-visited-routing-key: team.visited
+    team-deleted-routing-key: team.deleted
     player-visited-routing-key: player.visited
     player-deleted-routing-key: player.deleted
 
