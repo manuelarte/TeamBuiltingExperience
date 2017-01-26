@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.manuel.teambuilting.experience.model.TimeSlice;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -29,7 +30,7 @@ import lombok.Data;
 @Immutable
 @Document
 @Data
-public class PlayerReward {
+public class PlayerReward implements TimeSlice {
 
     @Id
     private String id;
