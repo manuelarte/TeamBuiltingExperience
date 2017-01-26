@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TeamBuiltingExperience Unit Tests" verbose="10" configfailurepolicy="continue">
+    <test verbose="10" name="Unit Tests" preserve-order="false">
+        <packages>
+            <package name="org.manuel.teambuilting.experience.*">
+            </package>
+        </packages>
+    </test>
+</suite>
