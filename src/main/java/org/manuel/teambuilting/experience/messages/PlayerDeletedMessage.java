@@ -8,6 +8,8 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.manuel.teambuilting.experience.model.Player;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
