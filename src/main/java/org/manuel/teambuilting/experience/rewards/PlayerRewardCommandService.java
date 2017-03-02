@@ -19,8 +19,8 @@ import java.util.Set;
 @Service
 public class PlayerRewardCommandService {
 
-    private final PlayerRewardRepository repository;
     private final Auth0Client auth0Client;
+    private final PlayerRewardRepository repository;
 
     @Inject
     public PlayerRewardCommandService(final Auth0Client auth0Client, final PlayerRewardRepository repository) {
