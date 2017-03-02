@@ -4,21 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mongodb.annotations.Immutable;
-
-import java.util.Date;
-
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-
+import lombok.Data;
 import org.manuel.teambuilting.experience.model.TimeSlice;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * @author Manuel Doncel Martos
@@ -38,7 +35,6 @@ public class PlayerReward implements TimeSlice {
     /**
      * The user who voted the reward
      */
-    @NotNull
     @Indexed
     private String userId;
 

@@ -1,19 +1,14 @@
 package org.manuel.teambuilting.experience.rewards;
 
-import java.util.Date;
-import java.util.Set;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Manuel Doncel Martos
@@ -44,6 +39,7 @@ public class PlayerRewardController {
 
     @RequestMapping(method = RequestMethod.POST)
     public PlayerReward savePlayerReward(@Valid @RequestBody final PlayerReward playerReward) {
+        Assert.isNull(playerReward.getUserId());
         return commandService.savePlayerReward(playerReward);
     }
 
