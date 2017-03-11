@@ -4,18 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mongodb.annotations.Immutable;
-import lombok.Data;
+
+import java.util.Date;
+
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 import org.manuel.teambuilting.experience.model.TimeSlice;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Manuel Doncel Martos
@@ -27,6 +33,9 @@ import java.util.Date;
 @Immutable
 @Document
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PlayerReward implements TimeSlice {
 
     @Id
@@ -90,10 +99,6 @@ public class PlayerReward implements TimeSlice {
         this.comment = comment;
         this.fromDate = fromDate;
         this.toDate = toDate;
-    }
-
-    public PlayerReward() {
-
     }
 
     @AssertTrue

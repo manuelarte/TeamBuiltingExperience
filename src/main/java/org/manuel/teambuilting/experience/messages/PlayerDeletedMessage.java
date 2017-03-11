@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.manuel.teambuilting.experience.model.Player;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -22,6 +23,7 @@ import lombok.Data;
 @JsonDeserialize
 @Data
 @AllArgsConstructor
+@Builder
 public class PlayerDeletedMessage {
 
     @NotNull
