@@ -1,16 +1,18 @@
 package org.manuel.teambuilting.experience.rewards;
 
 import com.auth0.spring.security.api.Auth0JWTToken;
+
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.manuel.teambuilting.core.config.Auth0Client;
+import org.manuel.teambuilting.experience.utils.Util;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Manuel Doncel Martos
@@ -49,24 +51,9 @@ public class PlayerRewardCommandService {
     }
 
     private boolean noOverlapping(final PlayerReward playerReward) {
-        final Set<PlayerReward> overlappingEntries = new HashSet<>();
         final Set<PlayerReward> votesForOnePlayer = repository
             .findByUserIdAndTeamIdAndReward(playerReward.getUserId(), playerReward.getTeamId(), playerReward.getReward());
-
-        votesForOnePlayer.forEach(entry -> {
-            if (isOverlapping(entry, playerReward)) {
-                overlappingEntries.add(entry);
-            }
-        });
-        return overlappingEntries.isEmpty();
-    }
-
-    private boolean isOverlapping(final PlayerReward previousEntry, final PlayerReward newEntry) {
-        // previous entry is not inside
-        final boolean previousEntryIsInsideNewOne = newEntry.getFromDate().compareTo(previousEntry.getFromDate()) == 1 &&  newEntry.getToDate().compareTo(previousEntry.getToDate()) == -1;
-        final boolean fromDateBetweenPreviousDates = (newEntry.getFromDate().compareTo(previousEntry.getFromDate()) == 0 || newEntry.getFromDate().after(previousEntry.getFromDate())) && newEntry.getFromDate().before(previousEntry.getToDate());
-        final boolean toDateBetweenPreviousDates = newEntry.getToDate().after(previousEntry.getFromDate()) && newEntry.getToDate().before(previousEntry.getToDate());
-        return previousEntryIsInsideNewOne || fromDateBetweenPreviousDates || toDateBetweenPreviousDates;
+        return Util.getOverlappingEntries(playerReward, votesForOnePlayer).isEmpty();
     }
 
 }
