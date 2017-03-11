@@ -53,8 +53,8 @@ public class PlayerListenerTest {
 	@Test
 	public void deletePlayerTest() throws InterruptedException {
 		final Player player = Player.builder().id("playerId").build();
-		createPlayerComment(player);
-		createPlayerReward(player);
+		savePlayerComment(player);
+		savePlayerReward(player);
 
 		final PlayerDeletedMessage event = PlayerDeletedMessage.builder().player(player).date(new Date()).userId("userId").build();
 
@@ -68,13 +68,13 @@ public class PlayerListenerTest {
 		assertEquals(0, playerRewardRepository.findAll().size());
 	}
 
-	private void createPlayerReward(final Player player) {
+	private void savePlayerReward(final Player player) {
 		final PlayerReward playerReward = PlayerReward.builder().playerId(player.getId()).reward(Reward.BEST_PLAYER).comment("Test").userId("userId")
 			.teamId("teamId").fromDate(new Date()).toDate(new Date()).build();
 		playerRewardRepository.save(playerReward);
 	}
 
-	private void createPlayerComment(final Player player) {
+	private void savePlayerComment(final Player player) {
 		final PlayerComment playerComment = PlayerComment.builder().playerId(player.getId()).reason(CommentReason.KNOW).comment("Test").userId("userId").when(new Date()).build();
 		playerCommentRepository.save(playerComment);
 	}
