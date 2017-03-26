@@ -42,12 +42,42 @@ apply plugin: 'build-dashboard'
 apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'jdepend'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.sonarqube'
 apply plugin: 'project-report'
 apply plugin: 'ru.d10xa.allure'
+
+pmd {
+	ignoreFailures = true
+}
+
+findbugs {
+	ignoreFailures = true
+	effort = 'max'
+}
+
+tasks.withType(FindBugs) {
+	reports {
+		xml.enabled = false
+		html.enabled = true
+	}
+}
+
+jdepend {
+	ignoreFailures = false
+}
+
+tasks.withType(JDepend) {
+	reports {
+		text.enabled = false
+		xml.enabled = true
+	}
+}
 
 jar {
 	baseName = "${microserviceName}"
