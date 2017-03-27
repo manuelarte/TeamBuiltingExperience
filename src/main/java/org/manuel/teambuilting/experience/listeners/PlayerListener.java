@@ -16,7 +16,7 @@ import javax.inject.Inject;
 @RabbitListener(id = PlayerListener.LISTENER_ID, bindings = @QueueBinding(
         value = @Queue(durable = "true", value = "${messaging.amqp.player.queue.name}"),
         exchange = @Exchange(durable = "true", value = "${messaging.amqp.player.exchange.name}", type = ExchangeTypes.TOPIC),
-        key = "${messaging.amqp.player.queue.binding}"))
+        key = "player.deleted"))
 @Component
 public class PlayerListener {
 
