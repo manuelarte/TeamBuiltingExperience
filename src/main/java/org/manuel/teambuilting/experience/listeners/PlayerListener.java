@@ -1,17 +1,13 @@
 package org.manuel.teambuilting.experience.listeners;
 
-import javax.inject.Inject;
-
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
-import org.manuel.teambuilting.experience.messages.PlayerDeletedMessage;
 import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
+import org.manuel.teambuilting.messages.PlayerDeletedMessage;
 import org.springframework.amqp.core.ExchangeTypes;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
 
 /**
  * @author Manuel Doncel Martos

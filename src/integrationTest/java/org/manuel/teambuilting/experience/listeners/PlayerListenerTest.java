@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.manuel.teambuilting.experience.comments.CommentReason;
 import org.manuel.teambuilting.experience.comments.PlayerComment;
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
-import org.manuel.teambuilting.experience.messages.PlayerDeletedMessage;
+import org.manuel.teambuilting.messages.PlayerDeletedMessage;
 import org.manuel.teambuilting.experience.model.Player;
 import org.manuel.teambuilting.experience.rewards.PlayerReward;
 import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
