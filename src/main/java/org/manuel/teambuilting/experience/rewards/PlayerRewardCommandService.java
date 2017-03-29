@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.manuel.teambuilting.core.config.Auth0Client;
+import org.manuel.teambuilting.experience.config.Auth0Client;
 import org.manuel.teambuilting.experience.utils.Util;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

@@ -5,7 +5,6 @@ package org.manuel.teambuilting.experience.config;
 
 import com.auth0.spring.security.api.Auth0SecurityConfig;
 
-import org.manuel.teambuilting.core.config.Auth0Client;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

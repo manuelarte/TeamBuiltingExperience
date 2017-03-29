@@ -1,14 +1,15 @@
 package org.manuel.teambuilting.experience.comments;
 
 import com.auth0.spring.security.api.Auth0JWTToken;
-import org.manuel.teambuilting.core.config.Auth0Client;
+
+import javax.inject.Inject;
+
+import org.manuel.teambuilting.experience.config.Auth0Client;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import javax.inject.Inject;
 
 /**
  * @author Manuel Doncel Martos

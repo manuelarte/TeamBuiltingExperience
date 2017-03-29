@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.core.config;
+package org.manuel.teambuilting.experience.config;
 
 import com.auth0.Auth0;
 import com.auth0.authentication.AuthenticationAPIClient;
