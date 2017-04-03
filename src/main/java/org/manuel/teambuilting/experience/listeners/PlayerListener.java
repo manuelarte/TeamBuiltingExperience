@@ -1,22 +1,28 @@
 package org.manuel.teambuilting.experience.listeners;
 
+import javax.inject.Inject;
+
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
 import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
-import org.manuel.teambuilting.messages.PlayerDeletedMessage;
+import org.manuel.teambuilting.messages.PlayerDeletedEvent;
 import org.springframework.amqp.core.ExchangeTypes;
-import org.springframework.amqp.rabbit.annotation.*;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
 
 /**
  * @author Manuel Doncel Martos
  * @since 01/01/2017.
  */
 @RabbitListener(id = PlayerListener.LISTENER_ID, bindings = @QueueBinding(
-        value = @Queue(durable = "true", value = "${messaging.amqp.player.queue.name}"),
-        exchange = @Exchange(durable = "true", value = "${messaging.amqp.player.exchange.name}", type = ExchangeTypes.TOPIC),
-        key = "player.deleted"))
+        value = @Queue(value = "${messaging.amqp.player.queue.name}",
+            durable = "${messaging.amqp.player.queue.durable}", autoDelete = "${messaging.amqp.player.queue.autodelete}"),
+        exchange = @Exchange(value = "${messaging.amqp.player.exchange.name}", type = ExchangeTypes.TOPIC,
+            durable = "${messaging.amqp.player.exchange.durable}", autoDelete = "${messaging.amqp.player.exchange.autodelete}"),
+        key = "${messaging.amqp.player.queue.binding}"))
 @Component
 public class PlayerListener {
 
@@ -32,9 +38,9 @@ public class PlayerListener {
     }
 
     @RabbitHandler
-    public void handle(final PlayerDeletedMessage message) {
-        playerCommentRepository.delete(playerCommentRepository.findByPlayerId(message.getPlayer().getId()));
-        playerRewardRepository.delete(playerRewardRepository.findByPlayerId(message.getPlayer().getId()));
+    public void handle(final PlayerDeletedEvent event) {
+        playerCommentRepository.delete(playerCommentRepository.findByPlayerId(event.getPlayerId()));
+        playerRewardRepository.delete(playerRewardRepository.findByPlayerId(event.getPlayerId()));
     }
 
 }

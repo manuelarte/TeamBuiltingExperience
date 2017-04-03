@@ -13,11 +13,11 @@ import org.junit.runner.RunWith;
 import org.manuel.teambuilting.experience.comments.CommentReason;
 import org.manuel.teambuilting.experience.comments.PlayerComment;
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
-import org.manuel.teambuilting.messages.PlayerDeletedMessage;
 import org.manuel.teambuilting.experience.model.Player;
 import org.manuel.teambuilting.experience.rewards.PlayerReward;
 import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
 import org.manuel.teambuilting.experience.rewards.Reward;
+import org.manuel.teambuilting.messages.PlayerDeletedEvent;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.test.RabbitListenerTest;
 import org.springframework.amqp.rabbit.test.RabbitListenerTestHarness;
@@ -56,14 +56,14 @@ public class PlayerListenerTest {
 		savePlayerComment(player);
 		savePlayerReward(player);
 
-		final PlayerDeletedMessage event = PlayerDeletedMessage.builder().player(player).date(new Date()).userId("userId").build();
+		final PlayerDeletedEvent event = PlayerDeletedEvent.builder().playerId(player.getId()).date(new Date()).userId("userId").build();
 
 		rabbitTemplate.convertAndSend(playerExchange, "player.deleted", event);
 
 		InvocationData data = harness.getNextInvocationDataFor(PlayerListener.LISTENER_ID, 5, TimeUnit.SECONDS);
 		assertNotNull(data);
 		assertEquals(1, data.getArguments().length);
-		assertEquals(event, ((PlayerDeletedMessage) data.getArguments()[0]));
+		assertEquals(event, ((PlayerDeletedEvent) data.getArguments()[0]));
 		assertEquals(0, playerCommentRepository.findAll().size());
 		assertEquals(0, playerRewardRepository.findAll().size());
 	}
