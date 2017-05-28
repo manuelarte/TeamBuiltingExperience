@@ -1,34 +1,24 @@
 package org.manuel.teambuilting.experience.rewards;
 
-import com.auth0.spring.security.api.Auth0JWTToken;
-
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import org.manuel.teambuilting.experience.config.Auth0Client;
+import com.auth0.Auth0User;
+import lombok.AllArgsConstructor;
 import org.manuel.teambuilting.experience.utils.Util;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.Set;
 
 /**
  * @author Manuel Doncel Martos
  * @since 04/01/2016.
  */
 @Service
+@AllArgsConstructor
 public class PlayerRewardCommandService {
 
-    private final Auth0Client auth0Client;
     private final PlayerRewardRepository repository;
-
-    @Inject
-    public PlayerRewardCommandService(final Auth0Client auth0Client, final PlayerRewardRepository repository) {
-        this.auth0Client = auth0Client;
-        this.repository = repository;
-    }
+    private final Util util;
 
     /**
      * Save a comment received
@@ -37,10 +27,10 @@ public class PlayerRewardCommandService {
      */
     @PreAuthorize("hasAuthority('user') or hasAuthority('admin')")
     public PlayerReward savePlayerReward(final PlayerReward playerReward) {
-        Assert.notNull(playerReward);
+        Assert.notNull(playerReward, "PlayerReward cannot be null");
         Assert.isTrue(noOverlapping(playerReward), "A previous reward with an overlapping timeframe was found");
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        playerReward.setUserId(auth0Client.getUser((Auth0JWTToken) auth).getId());
+        final Auth0User user = util.getUserProfile().get();
+        playerReward.setUserId(user.getUserId());
         return repository.save(playerReward);
     }
 
