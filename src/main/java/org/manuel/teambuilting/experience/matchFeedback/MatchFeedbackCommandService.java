@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 import org.manuel.teambuilting.core.services.command.AbstractCommandService;
 import org.manuel.teambuilting.exceptions.ValidationRuntimeException;

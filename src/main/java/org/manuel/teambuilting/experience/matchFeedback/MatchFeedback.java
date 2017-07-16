@@ -1,5 +1,6 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -8,6 +9,8 @@ import com.mongodb.annotations.Immutable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,15 +25,22 @@ import java.util.Optional;
  */
 @JsonIgnoreProperties
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonDeserialize(builder = IncomingMatchFeedbackDto.IncomingMatchFeedbackDtoBuilder.class)
+@JsonDeserialize(builder = MatchFeedback.MatchFeedbackBuilder.class)
 @Immutable
 @Document
 @Data
 @Builder
 @AllArgsConstructor
-public class IncomingMatchFeedbackDto {
+public class MatchFeedback {
 
+    @Id
     private final String id;
+
+    /**
+     * The user who gave the feedback
+     */
+    @Indexed
+    private final String userId;
 
     /**
      * The teamId of the team that the player was playing when receiving the reward vote
@@ -42,6 +52,7 @@ public class IncomingMatchFeedbackDto {
     /**
      * If the feedback is anonymous
      */
+    @JsonIgnore
     private final Boolean anonymous;
 
     /**
@@ -51,6 +62,17 @@ public class IncomingMatchFeedbackDto {
 
     private Map<String, MatchReward> rewards;
 
+    @PersistenceConstructor
+    public MatchFeedback(final String id, final String userId, final String matchId, final boolean anonymous,
+                         final Map<String, Double> ratings, final Map<String, MatchReward> rewards) {
+        this.id = id;
+        this.userId = anonymous ? null : userId;
+        this.matchId = matchId;
+        this.anonymous = anonymous;
+        this.ratings = ratings;
+        this.rewards = rewards;
+    }
+
     @AssertFalse
     public boolean ratingsBetweenRange() {
         final Optional<Map.Entry<String, Double>> first = ratings.entrySet().stream().filter(entry -> entry.getValue() < 0 || entry.getValue() > 5).findFirst();
@@ -58,7 +80,7 @@ public class IncomingMatchFeedbackDto {
     }
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static class IncomingMatchFeedbackDtoBuilder {
+    public static class MatchFeedbackBuilder {
 
     }
 

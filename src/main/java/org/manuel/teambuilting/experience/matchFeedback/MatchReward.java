@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 /**
  * @author Manuel Doncel Martos

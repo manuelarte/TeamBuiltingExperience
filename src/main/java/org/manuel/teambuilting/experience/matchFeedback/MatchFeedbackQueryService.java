@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 import org.manuel.teambuilting.core.services.query.AbstractQueryService;
 import org.manuel.teambuilting.experience.utils.Util;
@@ -22,7 +22,7 @@ public class MatchFeedbackQueryService extends AbstractQueryService<MatchFeedbac
     }
 
     /**
-     * Get all the user feedbacks for one match
+     * Get all the user feedback for one match
      * @param matchId
      * @return
      */

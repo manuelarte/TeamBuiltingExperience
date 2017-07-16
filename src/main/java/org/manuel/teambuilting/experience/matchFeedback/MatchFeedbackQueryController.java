@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -11,14 +11,14 @@ import java.util.Set;
  * @since 04/01/2016.
  */
 @RestController
-@RequestMapping("/experience/matchFeedbacks")
+@RequestMapping("/experience/matchFeedback")
 @AllArgsConstructor
 public class MatchFeedbackQueryController {
 
     private final MatchFeedbackQueryService queryService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<MatchFeedback> getMatchFeedbacksForMatch(@RequestParam final String matchId) {
+    public Set<MatchFeedback> getMatchFeedbackForMatch(@RequestParam final String matchId) {
         return queryService.getMatchFeedbackForMatch(matchId);
     }
 

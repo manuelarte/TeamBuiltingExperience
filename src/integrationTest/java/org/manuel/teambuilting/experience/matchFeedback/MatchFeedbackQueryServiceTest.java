@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ public class MatchFeedbackQueryServiceTest {
     private MatchFeedbackRepository matchFeedbackRepository;
 
     @Test
-    public void testRetrieveAllMatchFeedbacksFromOneExistingMatch() {
+    public void testRetrieveAllMatchFeedbackFromOneExistingMatch() {
         final String matchId = UUID.randomUUID().toString();
         final Map<String, Double> ratings = new HashMap<>();
         ratings.put("player1", 3D);

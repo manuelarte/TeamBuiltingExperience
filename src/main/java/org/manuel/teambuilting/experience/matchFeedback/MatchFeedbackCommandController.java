@@ -1,4 +1,4 @@
-package org.manuel.teambuilting.experience.matchFeedbacks;
+package org.manuel.teambuilting.experience.matchFeedback;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * @since 04/01/2016.
  */
 @RestController
-@RequestMapping("experience/matchFeedbacks")
+@RequestMapping("experience/matchFeedback")
 @AllArgsConstructor
 public class MatchFeedbackCommandController {
 
@@ -19,7 +19,7 @@ public class MatchFeedbackCommandController {
     private final IncomingMatchFeedbackDtoToMatchFeedbackTransformer transformer;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public MatchFeedback saveMatchFeedbacksForMatch(@Valid @RequestBody final IncomingMatchFeedbackDto matchFeedback) {
+    public MatchFeedback saveMatchFeedbackForMatch(@Valid @RequestBody final IncomingMatchFeedbackDto matchFeedback) {
         return commandService.save(transformer.apply(matchFeedback));
     }
 
