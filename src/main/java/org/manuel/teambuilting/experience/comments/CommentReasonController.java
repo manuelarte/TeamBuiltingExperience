@@ -1,12 +1,12 @@
 package org.manuel.teambuilting.experience.comments;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Manuel Doncel Martos
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentReasonController {
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public Set<CommentReason> getCommentsFor() {
         return Arrays.stream(CommentReason.values()).collect(Collectors.toSet());
     }

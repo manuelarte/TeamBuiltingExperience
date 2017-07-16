@@ -132,6 +132,8 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-actuator-docs'
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-web-services'
+	compile 'org.aspectj:aspectjweaver:1.8.10'
+
 
 	compile 'com.auth0:auth0-spring-security-mvc:1.2.3'
 	compile 'com.auth0:auth0-spring-security-api:1.0.0-rc.2'

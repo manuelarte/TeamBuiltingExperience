@@ -1,27 +1,21 @@
 package org.manuel.teambuilting.experience.rewards;
 
-import java.util.Date;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Manuel Doncel Martos
  * @since 04/01/2016.
  */
 @Service
+@AllArgsConstructor
 public class PlayerRewardQueryService {
 
     private final PlayerRewardRepository repository;
-
-    @Inject
-    public PlayerRewardQueryService(final PlayerRewardRepository repository) {
-        this.repository = repository;
-    }
-
     /**
      * Get all the rewards given to the members of the team
      * @param teamId

@@ -1,11 +1,12 @@
 package org.manuel.teambuilting.experience.rewards;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.Set;
@@ -16,34 +17,29 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/experience/rewards")
+@AllArgsConstructor
 public class PlayerRewardController {
 
     private final PlayerRewardQueryService queryService;
     private final PlayerRewardCommandService commandService;
 
-    @Inject
-    public PlayerRewardController(final PlayerRewardQueryService queryService, final PlayerRewardCommandService commandService) {
-        this.queryService = queryService;
-        this.commandService = commandService;
-    }
-
-    @RequestMapping(path = "/teams/{teamId}", method = RequestMethod.GET)
+    @GetMapping(path = "/teams/{teamId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<PlayerReward> getRewardsForTeam(@PathVariable("teamId") final String teamId, @RequestParam(value="date") final Date date) {
         return queryService.getRewardsForTeam(teamId, date);
     }
 
-    @RequestMapping(path = "/players/{playerId}", method = RequestMethod.GET)
+    @GetMapping(path = "/players/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<PlayerReward> getRewardsForPlayer(@PathVariable("playerId") final String playerId) {
         return queryService.getRewardsForPlayer(playerId);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PlayerReward savePlayerReward(@Valid @RequestBody final PlayerReward playerReward) {
         Assert.isNull(playerReward.getUserId());
         return commandService.savePlayerReward(playerReward);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<PlayerReward> deletePlayerReward(@PathVariable("id") final String id) {
         commandService.deletePlayerReward(id);
         return new ResponseEntity<PlayerReward>(HttpStatus.NO_CONTENT);
