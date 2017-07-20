@@ -56,7 +56,7 @@ public class MatchFeedback {
     private final Boolean anonymous;
 
     /**
-     * Players and their ratings
+     * Team and Players ratings
      */
     private Map<String, Double> ratings;
 
