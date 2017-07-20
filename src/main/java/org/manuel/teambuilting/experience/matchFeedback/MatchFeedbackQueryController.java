@@ -1,9 +1,16 @@
 package org.manuel.teambuilting.experience.matchFeedback;
 
 import lombok.AllArgsConstructor;
+import org.manuel.teambuilting.exceptions.ErrorCode;
+import org.manuel.teambuilting.exceptions.ValidationRuntimeException;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -23,8 +30,12 @@ public class MatchFeedbackQueryController {
     }
 
     @GetMapping(path = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public MatchFeedback getMatchFeedbackForUserAndMatch(@RequestParam final String matchId) {
-        return queryService.getMatchFeedbackForUserAndMatch(matchId);
+    public ResponseEntity<MatchFeedback> getMatchFeedbackForUserAndMatch(@RequestParam final String matchId) {
+        final Optional<MatchFeedback> matchFeedbackForUserAndMatch = queryService.getMatchFeedbackForUserAndMatch(matchId);
+        if (matchFeedbackForUserAndMatch.isPresent()) {
+            return ResponseEntity.ok(matchFeedbackForUserAndMatch.get());
+        }
+        throw new ValidationRuntimeException(ErrorCode.ENTITY_NOT_FOUND, MatchFeedback.class.getSimpleName());
     }
 
 }
