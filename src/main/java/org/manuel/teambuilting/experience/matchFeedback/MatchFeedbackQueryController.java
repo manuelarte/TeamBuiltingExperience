@@ -23,6 +23,7 @@ import java.util.Set;
 public class MatchFeedbackQueryController {
 
     private final MatchFeedbackQueryService queryService;
+    private final MatchFeedbackToIncomingMatchFeedbackDtoTransformer transformer;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<MatchFeedback> getMatchFeedbackForMatch(@RequestParam final String matchId) {
@@ -30,10 +31,10 @@ public class MatchFeedbackQueryController {
     }
 
     @GetMapping(path = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MatchFeedback> getMatchFeedbackForUserAndMatch(@RequestParam final String matchId) {
+    public ResponseEntity<IncomingMatchFeedbackDto> getMatchFeedbackForUserAndMatch(@RequestParam final String matchId) {
         final Optional<MatchFeedback> matchFeedbackForUserAndMatch = queryService.getMatchFeedbackForUserAndMatch(matchId);
         if (matchFeedbackForUserAndMatch.isPresent()) {
-            return ResponseEntity.ok(matchFeedbackForUserAndMatch.get());
+            return ResponseEntity.ok(transformer.apply(matchFeedbackForUserAndMatch.get()));
         }
         throw new ValidationRuntimeException(ErrorCode.ENTITY_NOT_FOUND, MatchFeedback.class.getSimpleName());
     }
