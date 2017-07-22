@@ -14,6 +14,11 @@ public class IncomingMatchFeedbackDtoToMatchFeedbackTransformer {
 
     private final Util utils;
 
+    /**
+     * Transform the Incoming match feedback to MatchFeedback, by using the userId
+     * @param input
+     * @return
+     */
     public MatchFeedback apply(final IncomingMatchFeedbackDto input) {
         final String userId = utils.getUserProfile().get().getUserId();
         return MatchFeedback.builder().id(input.getId()).userId(userId).matchId(input.getMatchId())

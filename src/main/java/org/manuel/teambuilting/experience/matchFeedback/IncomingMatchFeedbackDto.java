@@ -8,10 +8,12 @@ import com.mongodb.annotations.Immutable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.apache.commons.lang3.Range;
+import org.manuel.teambuilting.experience.utils.AppConstants;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.Optional;
@@ -51,9 +53,13 @@ public class IncomingMatchFeedbackDto {
 
     private Map<String, MatchReward> rewards;
 
-    @AssertFalse
+    @AssertTrue
+    @SuppressWarnings("unused")
     public boolean ratingsBetweenRange() {
-        final Optional<Map.Entry<String, Double>> first = ratings.entrySet().stream().filter(entry -> entry.getValue() < 0 || entry.getValue() > 5).findFirst();
+        final Optional<Map.Entry<String, Double>> first = ratings.entrySet().stream()
+                .filter(entry -> entry.getValue() != null
+                        && Range.between(AppConstants.MIN_NUMBER_OF_STARS, AppConstants.MAX_NUMBER_OF_STARS).contains(entry.getValue())
+                        && entry.getValue() % AppConstants.STEP_OF_STARS != 0).findFirst();
         return first.isPresent();
     }
 
