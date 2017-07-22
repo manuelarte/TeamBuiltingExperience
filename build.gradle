@@ -14,7 +14,7 @@ plugins {
 	id 'nebula.lint' version '6.3.0'
 	id 'org.liquibase.gradle' version '1.2.1'
 	id 'org.sonarqube' version '2.2.1'
-	id 'org.springframework.boot' version '1.5.3.RELEASE'
+	id 'org.springframework.boot' version '1.5.4.RELEASE'
 }
 
 // Define the classes that should not be analysed for code coverage both in Jacoco and Sonar
