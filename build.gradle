@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 buildscript {
 	repositories {
 		mavenLocal()
@@ -15,6 +17,7 @@ plugins {
 	id 'org.liquibase.gradle' version '1.2.1'
 	id 'org.sonarqube' version '2.2.1'
 	id 'org.springframework.boot' version '1.5.4.RELEASE'
+	id "org.ajoberstar.grgit" version "1.7.2"
 }
 
 // Define the classes that should not be analysed for code coverage both in Jacoco and Sonar
@@ -193,3 +196,11 @@ dependencyUpdates.resolutionStrategy = {
 task stage {
     dependsOn build
 }
+
+task procfileTxt() << {
+def file = new File("$projectDir/ProcfileTest.txt")
+file.createNewFile()
+file.text = """web: java -Dserver.port=\$PORT -Dspring.profiles.active=production -jar build/libs/${microserviceName}-${version}.jar"""
+}
+
+build.finalizedBy(procfileTxt)
