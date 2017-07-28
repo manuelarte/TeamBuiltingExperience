@@ -1,8 +1,8 @@
 package org.manuel.teambuilting.experience.matchFeedback;
 
 import lombok.AllArgsConstructor;
-import org.manuel.teambuilting.exceptions.ErrorCode;
-import org.manuel.teambuilting.exceptions.ValidationRuntimeException;
+import org.manuel.teambuilting.core.exceptions.ErrorCode;
+import org.manuel.teambuilting.core.exceptions.ValidationRuntimeException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
