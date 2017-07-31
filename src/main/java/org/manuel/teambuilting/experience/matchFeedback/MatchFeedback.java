@@ -60,11 +60,12 @@ public class MatchFeedback {
      */
     private Map<String, Double> ratings;
 
-    private Map<String, MatchReward> rewards;
+    private Map<MatchReward, String> rewards;
 
     @PersistenceConstructor
+    @SuppressWarnings("unused")
     public MatchFeedback(final String id, final String userId, final String matchId, final boolean anonymous,
-                         final Map<String, Double> ratings, final Map<String, MatchReward> rewards) {
+                         final Map<String, Double> ratings, final Map<MatchReward, String> rewards) {
         this.id = id;
         this.userId = anonymous ? null : userId;
         this.matchId = matchId;

@@ -51,7 +51,7 @@ public class IncomingMatchFeedbackDto {
      */
     private Map<String, Double> ratings;
 
-    private Map<String, MatchReward> rewards;
+    private Map<MatchReward, String> rewards;
 
     @AssertTrue
     @SuppressWarnings("unused")
