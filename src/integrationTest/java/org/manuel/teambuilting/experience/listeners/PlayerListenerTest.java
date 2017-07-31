@@ -35,6 +35,7 @@ import static junit.framework.TestCase.assertNotNull;
 @RabbitListenerTest(capture = true)
 public class PlayerListenerTest {
 
+	// TODO, FIX BECAUSE THEY TAKE THE PRODUCTION VALUES, NOT THE TEST ONES
 	@Value("${messaging.amqp.player.exchange.name}")
 	private String playerExchange;
 
