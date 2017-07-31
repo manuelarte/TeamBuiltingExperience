@@ -1,17 +1,19 @@
 package org.manuel.teambuilting.experience.comments;
 
+import org.manuel.teambuilting.core.services.query.PlayerDependentQueryService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import java.util.Set;
+import java.math.BigInteger;
+import java.util.Collection;
 
 /**
  * @author Manuel Doncel Martos
  * @since 31/12/2016.
  */
 @Service
-public class PlayerCommentQueryService {
+public class PlayerCommentQueryService implements PlayerDependentQueryService<PlayerComment> {
 
     private final PlayerCommentRepository repository;
 
@@ -20,13 +22,9 @@ public class PlayerCommentQueryService {
         this.repository = repository;
     }
 
-    /**
-     * Get all the comments received by one player
-     * @param playerId
-     * @return The comments received by the player
-     */
-    public Set<PlayerComment> getCommentsFor(final String playerId) {
-        Assert.notNull(playerId);
+    @Override
+    public Collection<PlayerComment> findByPlayerId(final BigInteger playerId) {
+        Assert.notNull(playerId, "The id of the player cannot be null");
         return repository.findByPlayerId(playerId);
     }
 }

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.manuel.teambuilting.core.model.PlayerDependentEntity;
 import org.manuel.teambuilting.experience.model.TimeSlice;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -17,6 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -32,7 +34,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerReward implements TimeSlice {
+public class PlayerReward implements TimeSlice, PlayerDependentEntity {
 
     @Id
     private String id;
@@ -55,7 +57,7 @@ public class PlayerReward implements TimeSlice {
      */
     @NotNull
     @Indexed
-    private String playerId;
+    private BigInteger playerId;
 
     /**
      * The reward that the user voted for the player
@@ -85,8 +87,8 @@ public class PlayerReward implements TimeSlice {
     private Date toDate;
 
     @PersistenceConstructor
-    public PlayerReward(final String userId, final String teamId, final String playerId, final Reward reward, final String comment,
-        final Date fromDate, final Date toDate) {
+    public PlayerReward(final String userId, final String teamId, final BigInteger playerId, final Reward reward, final String comment,
+                        final Date fromDate, final Date toDate) {
         this.userId = userId;
         this.teamId = teamId;
         this.playerId = playerId;

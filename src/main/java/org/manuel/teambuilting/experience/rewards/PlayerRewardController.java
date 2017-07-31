@@ -8,6 +8,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,8 +31,8 @@ public class PlayerRewardController {
     }
 
     @GetMapping(path = "/players/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<PlayerReward> getRewardsForPlayer(@PathVariable("playerId") final String playerId) {
-        return queryService.getRewardsForPlayer(playerId);
+    public Collection<PlayerReward> getRewardsForPlayer(@PathVariable("playerId") final BigInteger playerId) {
+        return queryService.findByPlayerId(playerId);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.Set;
+import java.math.BigInteger;
+import java.util.Collection;
 
 /**
  * @author Manuel Doncel Martos
@@ -26,12 +27,12 @@ public class PlayerCommentController {
         this.commandService = commandService;
     }
 
-    @RequestMapping(path = "/{playerId}", method = RequestMethod.GET)
-    public Set<PlayerComment> getCommentsFor(@PathVariable("playerId") final String playerId) {
-        return queryService.getCommentsFor(playerId);
+    @GetMapping(path = "/{playerId}")
+    public Collection<PlayerComment> getCommentsFor(@PathVariable("playerId") final BigInteger playerId) {
+        return queryService.findByPlayerId(playerId);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public PlayerComment savePlayerComment(@Valid @RequestBody final PlayerComment playerComment) {
         Assert.isNull(playerComment.getId());
         return commandService.savePlayerComment(playerComment);

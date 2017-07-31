@@ -1,13 +1,5 @@
 package org.manuel.teambuilting.experience.listeners;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.manuel.teambuilting.experience.comments.CommentReason;
@@ -25,6 +17,14 @@ import org.springframework.amqp.rabbit.test.RabbitListenerTestHarness.Invocation
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * @author manuel.doncel.martos
@@ -52,18 +52,18 @@ public class PlayerListenerTest {
 
 	@Test
 	public void deletePlayerTest() throws InterruptedException {
-		final Player player = Player.builder().id("playerId").build();
+		final Player player = Player.builder().id(BigInteger.ONE).build();
 		savePlayerComment(player);
 		savePlayerReward(player);
 
 		final PlayerDeletedEvent event = PlayerDeletedEvent.builder().playerId(player.getId()).date(new Date()).userId("userId").build();
 
-		rabbitTemplate.convertAndSend(playerExchange, "player.deleted", event);
+		rabbitTemplate.convertAndSend(playerExchange, PlayerDeletedEvent.ROUTING_KEY, event);
 
 		InvocationData data = harness.getNextInvocationDataFor(PlayerListener.LISTENER_ID, 5, TimeUnit.SECONDS);
 		assertNotNull(data);
 		assertEquals(1, data.getArguments().length);
-		assertEquals(event, ((PlayerDeletedEvent) data.getArguments()[0]));
+		assertEquals(event, (data.getArguments()[0]));
 		assertEquals(0, playerCommentRepository.findAll().size());
 		assertEquals(0, playerRewardRepository.findAll().size());
 	}

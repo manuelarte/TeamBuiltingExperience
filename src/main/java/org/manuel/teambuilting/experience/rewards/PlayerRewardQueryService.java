@@ -1,9 +1,12 @@
 package org.manuel.teambuilting.experience.rewards;
 
 import lombok.AllArgsConstructor;
+import org.manuel.teambuilting.core.services.query.PlayerDependentQueryService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -13,7 +16,7 @@ import java.util.Set;
  */
 @Service
 @AllArgsConstructor
-public class PlayerRewardQueryService {
+public class PlayerRewardQueryService implements PlayerDependentQueryService<PlayerReward> {
 
     private final PlayerRewardRepository repository;
     /**
@@ -27,8 +30,9 @@ public class PlayerRewardQueryService {
         return repository.findByTeamIdAndFromDateLessThanEqualAndToDateGreaterThanEqual(teamId, date, date);
     }
 
-    public Set<PlayerReward> getRewardsForPlayer(final String playerId) {
-        Assert.notNull(playerId);
+    @Override
+    public Collection<PlayerReward> findByPlayerId(final BigInteger playerId) {
+        Assert.notNull(playerId, "The id of the player cannot be null");
         return repository.findByPlayerId(playerId);
     }
 }

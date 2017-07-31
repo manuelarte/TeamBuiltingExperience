@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.manuel.teambuilting.core.model.PlayerDependentEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -29,7 +31,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayerComment {
+public class PlayerComment implements PlayerDependentEntity {
 
     @Id
     private String id;
@@ -45,7 +47,7 @@ public class PlayerComment {
      */
     @NotNull
     @Indexed
-    private String playerId;
+    private BigInteger playerId;
 
     /**
      * The reason that the user knows the player
@@ -70,7 +72,7 @@ public class PlayerComment {
     private Date when;
 
     @PersistenceConstructor
-    public PlayerComment(final String userId, final String playerId, final CommentReason reason, final String comment, final Date when) {
+    public PlayerComment(final String userId, final BigInteger playerId, final CommentReason reason, final String comment, final Date when) {
         this.userId = userId;
         this.playerId = playerId;
         this.reason = reason;
