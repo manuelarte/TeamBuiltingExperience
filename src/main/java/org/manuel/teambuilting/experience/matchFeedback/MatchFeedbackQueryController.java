@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Manuel Doncel Martos
@@ -26,8 +28,8 @@ public class MatchFeedbackQueryController {
     private final MatchFeedbackToIncomingMatchFeedbackDtoTransformer transformer;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<MatchFeedback> getMatchFeedbackForMatch(@RequestParam final String matchId) {
-        return queryService.getMatchFeedbackForMatch(matchId);
+    public ResponseEntity<Set<MatchFeedback>> getMatchFeedbackForMatch(@RequestParam final String matchId) {
+        return ResponseEntity.ok(queryService.getMatchFeedbackForMatch(matchId));
     }
 
     @GetMapping(path = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,6 +39,11 @@ public class MatchFeedbackQueryController {
             return ResponseEntity.ok(transformer.apply(matchFeedbackForUserAndMatch.get()));
         }
         throw new ValidationRuntimeException(ErrorCode.ENTITY_NOT_FOUND, MatchFeedback.class.getSimpleName());
+    }
+
+    @GetMapping(path = "/rewards")
+    public ResponseEntity<Set<MatchReward>> getMatchRewardsForSport(@RequestParam final String sport) {
+        return ResponseEntity.ok(Arrays.stream(MatchReward.values()).collect(Collectors.toSet()));
     }
 
 }
