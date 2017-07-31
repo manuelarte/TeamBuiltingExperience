@@ -36,7 +36,7 @@ import static junit.framework.TestCase.assertNotNull;
 public class PlayerListenerTest {
 
 	// TODO, FIX BECAUSE THEY TAKE THE PRODUCTION VALUES, NOT THE TEST ONES
-	@Value("${messaging.amqp.player.exchange.name}")
+	@Value("TEST." + "${messaging.amqp.player.exchange.name}")
 	private String playerExchange;
 
 	@Inject
