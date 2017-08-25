@@ -44,7 +44,7 @@ public class PlayerRewardController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<PlayerReward> deletePlayerReward(@PathVariable("id") final String id) {
         commandService.deletePlayerReward(id);
-        return new ResponseEntity<PlayerReward>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
