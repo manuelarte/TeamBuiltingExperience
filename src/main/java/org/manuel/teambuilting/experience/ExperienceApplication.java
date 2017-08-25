@@ -5,13 +5,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@SpringBootApplication
 @EnableAspectJAutoProxy
 @EnableCoreFunctionalities
-public class TeamBuiltingExperienceApplication {
+@SpringBootApplication
+public class ExperienceApplication {
 
 	public static void main(final String[] args) {
-		SpringApplication.run(TeamBuiltingExperienceApplication.class, args);
+		SpringApplication.run(ExperienceApplication.class, args);
 	}
 
 }
