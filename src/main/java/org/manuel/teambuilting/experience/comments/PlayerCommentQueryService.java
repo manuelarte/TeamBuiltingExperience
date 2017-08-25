@@ -1,9 +1,9 @@
 package org.manuel.teambuilting.experience.comments;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 /**
@@ -11,14 +11,10 @@ import java.util.Set;
  * @since 31/12/2016.
  */
 @Service
+@AllArgsConstructor
 public class PlayerCommentQueryService {
 
     private final PlayerCommentRepository repository;
-
-    @Inject
-    public PlayerCommentQueryService(final PlayerCommentRepository repository) {
-        this.repository = repository;
-    }
 
     /**
      * Get all the comments received by one player

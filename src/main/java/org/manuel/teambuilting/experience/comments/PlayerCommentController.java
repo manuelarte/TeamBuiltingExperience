@@ -1,11 +1,11 @@
 package org.manuel.teambuilting.experience.comments;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.Set;
 
@@ -15,16 +15,11 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/experience/comments/players")
+@AllArgsConstructor
 public class PlayerCommentController {
 
     private final PlayerCommentQueryService queryService;
     private final PlayerCommentCommandService commandService;
-
-    @Inject
-    public PlayerCommentController(final PlayerCommentQueryService queryService, final PlayerCommentCommandService commandService) {
-        this.queryService = queryService;
-        this.commandService = commandService;
-    }
 
     @RequestMapping(path = "/{playerId}", method = RequestMethod.GET)
     public Set<PlayerComment> getCommentsFor(@PathVariable("playerId") final String playerId) {
