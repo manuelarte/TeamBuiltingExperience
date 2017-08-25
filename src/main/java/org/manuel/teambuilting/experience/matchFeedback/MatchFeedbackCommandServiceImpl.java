@@ -2,7 +2,6 @@ package org.manuel.teambuilting.experience.matchFeedback;
 
 import org.manuel.teambuilting.core.exceptions.ValidationRuntimeException;
 import org.manuel.teambuilting.core.services.command.AbstractCommandService;
-import org.manuel.teambuilting.experience.utils.Util;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,11 +16,8 @@ import static org.manuel.teambuilting.core.exceptions.ErrorCode.MATCH_FEEDBACK_A
 class MatchFeedbackCommandServiceImpl extends AbstractCommandService<MatchFeedback, String, MatchFeedbackRepository>
         implements MatchFeedbackCommandService{
 
-    private final Util util;
-
-    public MatchFeedbackCommandServiceImpl(final MatchFeedbackRepository repository, final Util util) {
+    public MatchFeedbackCommandServiceImpl(final MatchFeedbackRepository repository) {
         super(repository);
-        this.util = util;
     }
 
     @Override

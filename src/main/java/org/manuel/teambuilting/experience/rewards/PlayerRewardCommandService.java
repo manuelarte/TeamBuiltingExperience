@@ -2,7 +2,8 @@ package org.manuel.teambuilting.experience.rewards;
 
 import com.auth0.Auth0User;
 import lombok.AllArgsConstructor;
-import org.manuel.teambuilting.experience.utils.Util;
+import org.manuel.teambuilting.core.utils.Util;
+import org.manuel.teambuilting.experience.utils.ExperienceUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -43,7 +44,7 @@ public class PlayerRewardCommandService {
     private boolean noOverlapping(final PlayerReward playerReward) {
         final Set<PlayerReward> votesForOnePlayer = repository
             .findByUserIdAndTeamIdAndReward(playerReward.getUserId(), playerReward.getTeamId(), playerReward.getReward());
-        return Util.getOverlappingEntries(playerReward, votesForOnePlayer).isEmpty();
+        return ExperienceUtil.getOverlappingEntries(playerReward, votesForOnePlayer).isEmpty();
     }
 
 }

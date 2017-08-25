@@ -1,10 +1,10 @@
 package org.manuel.teambuilting.experience.comments;
 
+import lombok.AllArgsConstructor;
 import org.manuel.teambuilting.core.services.query.PlayerDependentQueryService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.math.BigInteger;
 import java.util.Collection;
 
@@ -13,14 +13,10 @@ import java.util.Collection;
  * @since 31/12/2016.
  */
 @Service
+@AllArgsConstructor
 public class PlayerCommentQueryService implements PlayerDependentQueryService<PlayerComment> {
 
     private final PlayerCommentRepository repository;
-
-    @Inject
-    public PlayerCommentQueryService(final PlayerCommentRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public Collection<PlayerComment> findByPlayerId(final BigInteger playerId) {

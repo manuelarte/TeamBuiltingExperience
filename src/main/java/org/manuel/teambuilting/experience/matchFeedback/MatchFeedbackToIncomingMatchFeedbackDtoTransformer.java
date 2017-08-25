@@ -1,7 +1,6 @@
 package org.manuel.teambuilting.experience.matchFeedback;
 
 import lombok.AllArgsConstructor;
-import org.manuel.teambuilting.experience.utils.Util;
 import org.springframework.stereotype.Component;
 
 /**

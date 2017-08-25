@@ -1,16 +1,11 @@
 package org.manuel.teambuilting.experience.listeners;
 
-import javax.inject.Inject;
-
+import lombok.AllArgsConstructor;
 import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
 import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
 import org.manuel.teambuilting.messages.PlayerDeletedEvent;
 import org.springframework.amqp.core.ExchangeTypes;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,18 +19,13 @@ import org.springframework.stereotype.Component;
             durable = "${messaging.amqp.player.exchange.durable}", autoDelete = "${messaging.amqp.player.exchange.autodelete}"),
         key = "${messaging.amqp.player.queue.binding}"))
 @Component
+@AllArgsConstructor
 public class PlayerListener {
 
     public static final String LISTENER_ID = "PlayerListenerId";
 
     private final PlayerCommentRepository playerCommentRepository;
     private final PlayerRewardRepository playerRewardRepository;
-
-    @Inject
-    public PlayerListener(final PlayerCommentRepository playerCommentRepository, final PlayerRewardRepository playerRewardRepository) {
-        this.playerCommentRepository = playerCommentRepository;
-        this.playerRewardRepository = playerRewardRepository;
-    }
 
     @RabbitHandler
     public void handle(final PlayerDeletedEvent event) {
