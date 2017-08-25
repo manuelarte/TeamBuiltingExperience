@@ -10,8 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.Range;
 import org.manuel.teambuilting.experience.utils.AppConstants;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -26,7 +24,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize(builder = IncomingMatchFeedbackDto.IncomingMatchFeedbackDtoBuilder.class)
 @Immutable
-@Document
 @Data
 @Builder
 @AllArgsConstructor
@@ -38,7 +35,6 @@ public class IncomingMatchFeedbackDto {
      * The teamId of the team that the player was playing when receiving the reward vote
      */
     @NotNull
-    @Indexed
     private final String matchId;
 
     /**
