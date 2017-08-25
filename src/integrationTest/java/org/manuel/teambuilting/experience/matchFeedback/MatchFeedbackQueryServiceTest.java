@@ -2,6 +2,9 @@ package org.manuel.teambuilting.experience.matchFeedback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.manuel.teambuilting.experience.model.documents.MatchFeedback;
+import org.manuel.teambuilting.experience.repositories.MatchFeedbackRepository;
+import org.manuel.teambuilting.experience.services.query.MatchFeedbackQueryService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 

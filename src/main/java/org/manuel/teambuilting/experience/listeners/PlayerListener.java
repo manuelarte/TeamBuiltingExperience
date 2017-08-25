@@ -1,8 +1,8 @@
 package org.manuel.teambuilting.experience.listeners;
 
 import lombok.AllArgsConstructor;
-import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
-import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
+import org.manuel.teambuilting.experience.repositories.PlayerCommentRepository;
+import org.manuel.teambuilting.experience.repositories.PlayerRewardRepository;
 import org.manuel.teambuilting.messages.PlayerDeletedEvent;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.*;

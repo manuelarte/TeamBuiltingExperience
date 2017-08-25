@@ -4,6 +4,11 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.manuel.teambuilting.experience.model.documents.PlayerReward;
+import org.manuel.teambuilting.experience.model.enums.CompetitionReward;
+import org.manuel.teambuilting.experience.repositories.PlayerRewardRepository;
+import org.manuel.teambuilting.experience.services.command.PlayerCompetitionRewardCommandService;
+import org.manuel.teambuilting.experience.services.query.PlayerCompetitionRewardQueryService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,10 +32,10 @@ import static org.junit.Assert.assertTrue;
 public class PlayerRewardCommandServiceTest {
 
 	@Inject
-	private PlayerRewardQueryService queryService;
+	private PlayerCompetitionRewardQueryService queryService;
 
 	@Inject
-	private PlayerRewardCommandService commandService;
+	private PlayerCompetitionRewardCommandService commandService;
 
 	@Inject
 	private PlayerRewardRepository repository;
@@ -59,7 +64,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 
 		final Date toDateP = new Date();
@@ -87,7 +92,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 
 		final Date toDateP = new Date();
@@ -114,7 +119,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 
 		final Date toDateP = new Date();
@@ -142,7 +147,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 		final Date toDateP = new Date();
 		final Date fromDateP = changeDate(toDateP, -1, Calendar.YEAR);
@@ -169,7 +174,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 
 		final Date toDateP = new Date();
@@ -197,7 +202,7 @@ public class PlayerRewardCommandServiceTest {
 		final String userId = "userId";
 		final String teamId = "teamId";
 		final BigInteger playerId = BigInteger.ONE;
-		final Reward reward = Reward.BEST_GOAL;
+		final CompetitionReward reward = CompetitionReward.BEST_GOAL;
 		final String comment = "";
 
 		final Date toDateP = new Date();
@@ -222,13 +227,13 @@ public class PlayerRewardCommandServiceTest {
 		final Date toDate = changeDate(new Date(), +1, Calendar.MONTH);
 		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
 
-		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
-		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), Reward.BEST_COACH, comment, fromDate, toDate));
-		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), Reward.BEST_PLAYER, comment, fromDate, toDate));
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), CompetitionReward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), CompetitionReward.BEST_PLAYER, comment, fromDate, toDate));
 
-		final PlayerReward rewardFour = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
-		final PlayerReward rewardFive = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, new BigInteger("2"), Reward.BEST_COACH, comment, fromDate, toDate));
-		final PlayerReward rewardSix = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, new BigInteger("3"), Reward.BEST_PLAYER, comment, fromDate, toDate));
+		final PlayerReward rewardFour = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardFive = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, new BigInteger("2"), CompetitionReward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardSix = commandService.savePlayerReward(new PlayerReward(userIdTwo, teamId, new BigInteger("3"), CompetitionReward.BEST_PLAYER, comment, fromDate, toDate));
 
 		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 6);
@@ -244,12 +249,12 @@ public class PlayerRewardCommandServiceTest {
 		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
 
 		// 1. Users voting to the same player for the same reward
-		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
-		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
 
 		// 2. User voting to another player for
-		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), Reward.BEST_COACH, comment, fromDate, toDate));
-		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("3"), Reward.BEST_PLAYER, comment, fromDate, toDate));
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), CompetitionReward.BEST_COACH, comment, fromDate, toDate));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("3"), CompetitionReward.BEST_PLAYER, comment, fromDate, toDate));
 
 		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 4);
@@ -265,12 +270,12 @@ public class PlayerRewardCommandServiceTest {
 		final Date fromDate = changeDate(toDate, -1, Calendar.YEAR);
 
 		// 1. Users voting to the same player for the same reward
-		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
-		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, BigInteger.ONE, Reward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne = commandService.savePlayerReward(new PlayerReward(userId, teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
+		final PlayerReward rewardOne_2 = commandService.savePlayerReward(new PlayerReward(userId + "_2", teamId, BigInteger.ONE, CompetitionReward.BEST_GOAL, comment, fromDate, toDate));
 
 		// 2. User voting to one player one reward different timeframe
-		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), Reward.BEST_COACH, comment, toDate, changeDate(toDate, 1, Calendar.YEAR)));
-		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("3"), Reward.BEST_PLAYER, comment, changeDate(fromDate, -1, Calendar.YEAR), fromDate));
+		final PlayerReward rewardTwo = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("2"), CompetitionReward.BEST_COACH, comment, toDate, changeDate(toDate, 1, Calendar.YEAR)));
+		final PlayerReward rewardThree = commandService.savePlayerReward(new PlayerReward(userId, teamId, new BigInteger("3"), CompetitionReward.BEST_PLAYER, comment, changeDate(fromDate, -1, Calendar.YEAR), fromDate));
 
 		final Set<PlayerReward> retrieved = queryService.getRewardsForTeam(teamId, new Date());
 		assertTrue(retrieved.size() == 2);

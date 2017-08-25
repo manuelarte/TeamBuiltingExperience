@@ -2,13 +2,13 @@ package org.manuel.teambuilting.experience.listeners;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.manuel.teambuilting.experience.comments.CommentReason;
-import org.manuel.teambuilting.experience.comments.PlayerComment;
-import org.manuel.teambuilting.experience.comments.PlayerCommentRepository;
+import org.manuel.teambuilting.experience.model.enums.CommentReason;
+import org.manuel.teambuilting.experience.model.documents.PlayerComment;
+import org.manuel.teambuilting.experience.repositories.PlayerCommentRepository;
 import org.manuel.teambuilting.experience.model.Player;
-import org.manuel.teambuilting.experience.rewards.PlayerReward;
-import org.manuel.teambuilting.experience.rewards.PlayerRewardRepository;
-import org.manuel.teambuilting.experience.rewards.Reward;
+import org.manuel.teambuilting.experience.model.documents.PlayerReward;
+import org.manuel.teambuilting.experience.repositories.PlayerRewardRepository;
+import org.manuel.teambuilting.experience.model.enums.CompetitionReward;
 import org.manuel.teambuilting.messages.PlayerDeletedEvent;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.test.RabbitListenerTest;
@@ -70,7 +70,7 @@ public class PlayerListenerTest {
 	}
 
 	private void savePlayerReward(final Player player) {
-		final PlayerReward playerReward = PlayerReward.builder().playerId(player.getId()).reward(Reward.BEST_PLAYER).comment("Test").userId("userId")
+		final PlayerReward playerReward = PlayerReward.builder().playerId(player.getId()).reward(CompetitionReward.BEST_PLAYER).comment("Test").userId("userId")
 			.teamId("teamId").fromDate(new Date()).toDate(new Date()).build();
 		playerRewardRepository.save(playerReward);
 	}
