@@ -50,7 +50,7 @@ spring:
 --- 
   
 spring:
-  profiles: development
+  profiles: dev
   data.mongodb:
     database: teambuiltingexperience # Database name.
     host: localhost # Mongo server host.

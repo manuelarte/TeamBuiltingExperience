@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public enum MatchReward {
 
-    BEST_PLAYER("best player"), NOT_HIS_BEST_DAY("could have done better");
+    MAN_OF_THE_MATCH("best player"), NOT_HIS_BEST_DAY("could have done better");
 
     private final String title;
 
