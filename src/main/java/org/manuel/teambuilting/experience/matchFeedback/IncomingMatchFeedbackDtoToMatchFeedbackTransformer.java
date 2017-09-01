@@ -21,8 +21,9 @@ public class IncomingMatchFeedbackDtoToMatchFeedbackTransformer {
      */
     public MatchFeedback apply(final IncomingMatchFeedbackDto input) {
         final String userId = utils.getUserProfile().get().getUserId();
+        final boolean anonymous = input.getAnonymous() != null ? input.getAnonymous() : false;
         return MatchFeedback.builder().id(input.getId()).userId(userId).matchId(input.getMatchId())
-                .anonymous(input.getAnonymous()).ratings(input.getRatings()).rewards(input.getRewards()).build();
+                .anonymous(anonymous).ratings(input.getRatings()).rewards(input.getRewards()).build();
     }
 
 }

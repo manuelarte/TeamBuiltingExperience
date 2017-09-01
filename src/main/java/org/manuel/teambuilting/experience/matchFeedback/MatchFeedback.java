@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.mongodb.annotations.Immutable;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -30,7 +29,6 @@ import java.util.Optional;
 @Document
 @Data
 @Builder
-@AllArgsConstructor
 public class MatchFeedback {
 
     @Id
@@ -64,7 +62,7 @@ public class MatchFeedback {
 
     @PersistenceConstructor
     @SuppressWarnings("unused")
-    public MatchFeedback(final String id, final String userId, final String matchId, final boolean anonymous,
+    public MatchFeedback(final String id, final String userId, final String matchId, final Boolean anonymous,
                          final Map<String, Double> ratings, final Map<MatchReward, String> rewards) {
         this.id = id;
         this.userId = anonymous ? null : userId;
