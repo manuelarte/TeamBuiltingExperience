@@ -1,6 +1,8 @@
 package org.manuel.teambuilting.experience.comments;
 
 import org.manuel.teambuilting.core.repositories.PlayerDependentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,8 @@ import java.util.Set;
  */
 @Repository
 public interface PlayerCommentRepository extends MongoRepository<PlayerComment, String>, PlayerDependentRepository {
+
+    Page<PlayerComment> getByPlayerId(BigInteger playerId, Pageable pageable);
 
     /**
      * Find all the comments made by one user

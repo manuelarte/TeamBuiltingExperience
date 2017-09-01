@@ -2,11 +2,14 @@ package org.manuel.teambuilting.experience.comments;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -18,21 +21,15 @@ import java.util.Set;
 @AllArgsConstructor
 public class PlayerCommentController {
 
-    private final PlayerCommentQueryService queryService;
     private final PlayerCommentCommandService commandService;
+    private final IncomingPlayerCommentToPlayerCommentTransformer transformer;
 
-    @RequestMapping(path = "/{playerId}", method = RequestMethod.GET)
-    public Set<PlayerComment> getCommentsFor(@PathVariable("playerId") final String playerId) {
-        return queryService.getCommentsFor(playerId);
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public PlayerComment savePlayerComment(@Valid @RequestBody final IncomingPlayerCommentDto playerComment) {
+        return commandService.savePlayerComment(transformer.apply(playerComment, new Date()));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public PlayerComment savePlayerComment(@Valid @RequestBody final PlayerComment playerComment) {
-        Assert.isNull(playerComment.getId());
-        return commandService.savePlayerComment(playerComment);
-    }
-
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<PlayerComment> deletePlayerComment(@PathVariable("id") final String id) {
         commandService.deletePlayerComment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

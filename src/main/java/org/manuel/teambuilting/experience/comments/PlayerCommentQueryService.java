@@ -1,10 +1,13 @@
 package org.manuel.teambuilting.experience.comments;
 
 import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.Set;
+import java.math.BigInteger;
 
 /**
  * @author Manuel Doncel Martos
@@ -21,8 +24,8 @@ public class PlayerCommentQueryService {
      * @param playerId
      * @return The comments received by the player
      */
-    public Set<PlayerComment> getCommentsFor(final String playerId) {
-        Assert.notNull(playerId);
-        return repository.findByPlayerId(playerId);
+    public Page<PlayerComment> getCommentsFor(final BigInteger playerId, final Pageable pageable) {
+        Assert.notNull(playerId, "The player id cannot be null");
+        return repository.getByPlayerId(playerId, pageable);
     }
 }

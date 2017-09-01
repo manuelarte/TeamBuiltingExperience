@@ -29,9 +29,7 @@ import java.util.Date;
 @Document
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class PlayerComment implements PlayerDependentEntity {
+public class PlayerComment implements IPlayerComment {
 
     @Id
     private String id;
@@ -72,7 +70,8 @@ public class PlayerComment implements PlayerDependentEntity {
     private Date when;
 
     @PersistenceConstructor
-    public PlayerComment(final String userId, final BigInteger playerId, final CommentReason reason, final String comment, final Date when) {
+    public PlayerComment(final String id, final String userId, final BigInteger playerId, final CommentReason reason, final String comment, final Date when) {
+        this.id = id;
         this.userId = userId;
         this.playerId = playerId;
         this.reason = reason;
